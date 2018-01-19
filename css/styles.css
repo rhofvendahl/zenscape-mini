@@ -1,3 +1,9 @@
-#hide {
-  display: none;
+img {
+  width: 100px;
+}
+
+#canvas {
+  width: 300px;
+  height: 300px;
+  style: border:1px solid #d3d3d3;
 }

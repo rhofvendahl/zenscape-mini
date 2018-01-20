@@ -1,31 +1,9 @@
-#hide {
-  display: none;
-}
-
-#layers {
-  margin: 20px;
-  style: border:1px solid #d3d3d3;
-}
-
-html, body {
-  height: 100%;
-}
 body {
-  font: 12px/1.2 Arial;
-  perspective: 600px;
-
-  color: #fff;
-  text-align:center;
-}
-.model {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-style: preserve-3d;
-  transform-origin: 50% 50% 50%;
+  margin-top: 50%;
+  perspective: 500px;
 }
 
-.group {
+#scape {
   animation: spin 30s linear infinite;
 }
 
@@ -35,20 +13,26 @@ body {
   }
 }
 
+.object {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+}
+
 #cell1 {
   transform: translate3d(0px, 0px, 0px)
-    rotateX(90deg)
+    rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
 }
-
 #top1 {
   background: darkred;
   width: 100px;
   height: 100px;
   margin-left: -50px;
   margin-top: -50px;
-  transform: translate3d(0px, 0px, 0px)
+  transform: translate3d(0px, 0px, 150px)
     rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
@@ -59,7 +43,7 @@ body {
   height: 100px;
   margin-left: -150px;
   margin-top: -50px;
-  transform: translate3d(0px, 0px, 0px)
+  transform: translate3d(50px, 0px, 0px)
     rotateX(0deg)
     rotateY(90deg)
     rotateZ(0deg);
@@ -70,113 +54,88 @@ body {
   height: 300px;
   margin-left: -50px;
   margin-top: -150px;
-  transform: translate3d(0px, 0px, 0px)
+  transform: translate3d(0px, 50px, 0px)
     rotateX(-90deg)
     rotateY(0deg)
     rotateZ(0rad);
 }
 
 #cell2 {
-  transform: translate3d(100px, 10px, 0px)
-    rotateX(90deg)
+  transform: translate3d(100px, 0px, -20px)
+    rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
 }
-
 #top2 {
-  background: red;
+  background: darkred;
   width: 100px;
   height: 100px;
-  transform: translate3d(0px, 0px, 0px)
-    rotateX(90deg)
+  margin-left: -50px;
+  margin-top: -50px;
+  transform: translate3d(0px, 0px, 150px)
+    rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
 }
 #right2 {
-  background: blue;
-  width: 100px;
-  height: 200px;
-  transform: translate3d(50px, 50px, 0px)
+  background: darkblue;
+  width: 300px;
+  height: 100px;
+  margin-left: -150px;
+  margin-top: -50px;
+  transform: translate3d(50px, 0px, 0px)
     rotateX(0deg)
     rotateY(90deg)
     rotateZ(0deg);
 }
 #left2 {
-  background: green;
+  background: darkgreen;
   width: 100px;
-  height: 200px;
-  transform: translate3d(0px, 50px, 50px)
-    rotateX(0deg)
+  height: 300px;
+  margin-left: -50px;
+  margin-top: -150px;
+  transform: translate3d(0px, 50px, 0px)
+    rotateX(-90deg)
     rotateY(0deg)
     rotateZ(0rad);
 }
 
 #cell3 {
-  transform: translate3d(0px, 10px, 100px)
-    rotateX(90deg)
+  transform: translate3d(0px, 100px, -30px)
+    rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
 }
-
 #top3 {
-  background: red;
+  background: darkred;
   width: 100px;
   height: 100px;
-  transform: translate3d(0px, 0px, 0px)
-    rotateX(90deg)
+  margin-left: -50px;
+  margin-top: -50px;
+  transform: translate3d(0px, 0px, 150px)
+    rotateX(0deg)
     rotateY(0deg)
     rotateZ(0deg);
 }
 #right3 {
-  background: blue;
-  width: 100px;
-  height: 200px;
-  transform: translate3d(50px, 50px, 0px)
+  background: darkblue;
+  width: 300px;
+  height: 100px;
+  margin-left: -150px;
+  margin-top: -50px;
+  transform: translate3d(50px, 0px, 0px)
     rotateX(0deg)
     rotateY(90deg)
     rotateZ(0deg);
 }
 #left3 {
-  background: green;
+  background: darkgreen;
   width: 100px;
-  height: 200px;
-  transform: translate3d(0px, 50px, 50px)
-    rotateX(0deg)
-    rotateY(0deg)
-    rotateZ(0rad);
-}
-
-#cell4 {
-  transform: translate3d(100px, 20px, 100px)
-    rotateX(90deg)
-    rotateY(0deg)
-    rotateZ(0deg);
-}
-
-#top4 {
-  background: red;
-  width: 100px;
-  height: 100px;
-  transform: translate3d(0px, 0px, 0px)
-    rotateX(90deg)
-    rotateY(0deg)
-    rotateZ(0deg);
-}
-#right4 {
-  background: blue;
-  width: 100px;
-  height: 200px;
-  transform: translate3d(50px, 50px, 0px)
-    rotateX(0deg)
-    rotateY(90deg)
-    rotateZ(0deg);
-}
-#left4 {
-  background: green;
-  width: 100px;
-  height: 200px;
-  transform: translate3d(0px, 50px, 50px)
-    rotateX(0deg)
+  height: 300px;
+  margin-left: -50px;
+  margin-top: -150px;
+  transform: translate3d(0px, 50px, 0px)
+    rotateX(-90deg)
     rotateY(0deg)
     rotateZ(0rad);
 }

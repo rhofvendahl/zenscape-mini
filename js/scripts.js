@@ -1,6 +1,6 @@
 function makeScape(width, height, pix) {
-  //$("scape").css("margin-left", (-width*pix/2 + "px"));
-  //$("scape").css("margin-top", (-height*pix/2 + "px"));
+  $("#scape").css("margin-left", (pix/2-width*pix/2) + "px");
+  $("#scape").css("margin-top", (pix/2-height*pix/2) + "px");
   console.log("makescape");
 //  scapeMap = new Array(width);
   for (x=0; x<width; x++) {
@@ -23,16 +23,16 @@ function makeCell(x, y, pix) {
 
   //some sides commented to reduce latency
   //orthogonal to z axis
-  makeSide(cell, "light", pix,  (x*pix), (y*pix), (pix/2)-(x+y)*pix/4, 0, 0);
-  makeSide(cell, "dark", pix,  (x*pix), (y*pix), (-pix/2)-(x+y)*pix/4, 0, 0);
+  makeSide(cell, "light", pix,  (x*pix), (y*pix), (pix/2)-(x+y)*pix/5, 0, 0);
+  makeSide(cell, "dark", pix,  (x*pix), (y*pix), (-pix/2)-(x+y)*pix/5, 0, 0);
 
   //orthogonal to y axis
-  makeSide(cell, "dark", pix,  (x*pix), (y*pix+pix/2), -(x+y)*pix/4, (-90), 0);
-  makeSide(cell, "medium", pix,  (x*pix), (y*pix-pix/2), -(x+y)*pix/4, (-90), 0);
+  makeSide(cell, "dark", pix,  (x*pix), (y*pix+pix/2), -(x+y)*pix/5, (-90), 0);
+  makeSide(cell, "medium", pix,  (x*pix), (y*pix-pix/2), -(x+y)*pix/5, (-90), 0);
 
   //orthogonal to x axis
-  makeSide(cell, "medium", pix,  (x*pix+pix/2), (y*pix), -(x+y)*pix/4, 0, (90));
-  makeSide(cell, "dark", pix,  (x*pix-pix/2), (y*pix), -(x+y)*pix/4, 0, (90));
+  makeSide(cell, "medium", pix,  (x*pix+pix/2), (y*pix), -(x+y)*pix/5, 0, (90));
+  makeSide(cell, "dark", pix,  (x*pix-pix/2), (y*pix), -(x+y)*pix/5, 0, (90));
 };
 
 function makeSide(cell, shade, pix, tx, ty, tz, rx, ry) {
@@ -75,5 +75,5 @@ function makeSide(cell, shade, pix, tx, ty, tz, rx, ry) {
 
 
 $(document).ready(function() {
-  makeScape(20, 20, 40);
+  makeScape(20, 20, 20);
 });

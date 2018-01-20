@@ -1,20 +1,20 @@
 function makeScape(xCells, yCells, cellPx) {
-  $("#scape").css("margin-left", (cellPx/2-xCells*cellPx/2) + "px");
-  $("#scape").css("margin-top", (cellPx/2-yCells*cellPx/2) + "px");
+  $("#scape").css("margin-left", (-xCells*cellPx/2) + "px");
+  $("#scape").css("margin-top", (-yCells*cellPx/2) + "px");
   console.log("makescape");
 //  scapeMap = new Array(width);
   for (x=0; x<xCells; x++) {
   //  scapeMap[x] = new Array(height);
     for (y=0; y<yCells; y++) {
-      makeBox(("x" + x + "y" + y), x*cellPx, y*cellPx, Math.random()*cellPx*(xCells-x)/4, cellPx, cellPx, cellPx);
+      makeBox(("x" + x + "y" + y), x*cellPx, y*cellPx, Math.random()*cellPx, cellPx, cellPx, cellPx);
       //$(".x" + x + "y" + y).css("transform", "+=translate3d(0px, 0px, " + -(x+y)*cellPx/2 + "px)");
     };
   };
 
-  makeBox("base", (xCells*cellPx/2), (yCells*cellPx/2), (-2*cellPx), (xCells*cellPx), (yCells*cellPx), cellPx);
+  makeBox("base", 0, 0, 0, (xCells*cellPx), (yCells*cellPx), cellPx);
 };
 
-function makeBox(className, xCenter, yCenter, zCenter, xDim, yDim, zDim) {
+function makeBox(className, xCoord, yCoord, zCoord, xDim, yDim, zDim) {
   console.log("makeBox");
     //INIT COLOR
   //$("#scape").append("<div class='object'></div>")
@@ -24,16 +24,16 @@ function makeBox(className, xCenter, yCenter, zCenter, xDim, yDim, zDim) {
 
   //some sides commented to reduce latency
   //orthogonal to z axis
-  makeFace(className, "light", xDim, yDim,  xCenter, yCenter, (zCenter+zDim/2), 0, 0);
-  makeFace(className, "dark", xDim, yDim, xCenter, yCenter, (zCenter-zDim/2), 0, 0);
+  makeFace(className, "light", xDim, yDim,  (xCoord+xDim/2), (yCoord+yDim/2), (zCoord+zDim), 0, 0);
+  makeFace(className, "dark", xDim, yDim, (xCoord+xDim/2), (yCoord+yDim/2), zCoord, 0, 0);
 
   //orthogonal to y axis
-  makeFace(className, "dark", xDim, zDim, xCenter, (yCenter+yDim/2), zCenter, (-90), 0);
-  makeFace(className, "medium", xDim, zDim, xCenter, (yCenter-yDim/2), zCenter, (-90), 0);
+  makeFace(className, "dark", xDim, zDim, (xCoord+xDim/2), (yCoord+yDim), (zCoord+zDim/2), (-90), 0);
+  makeFace(className, "medium", xDim, zDim, (xCoord+xDim/2), yCoord, (zCoord+zDim/2), (-90), 0);
 
   //orthogonal to x axis
-  makeFace(className, "medium", zDim, yDim, (xCenter + xDim/2), yCenter, zCenter, 0, (90));
-  makeFace(className, "dark", zDim, yDim, (xCenter -xDim/2), yCenter, zCenter, 0, (90));
+  makeFace(className, "medium", zDim, yDim, (xCoord + xDim), (yCoord+yDim/2), (zCoord+zDim/2), 0, (90));
+  makeFace(className, "dark", zDim, yDim, xCoord, (yCoord+yDim/2), (zCoord+zDim/2), 0, (90));
 };
 
 function makeFace(className, shade, width, height, tx, ty, tz, rx, ry) {

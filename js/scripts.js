@@ -2,9 +2,12 @@ function makeScape(width, height, pix) {
   //$("scape").css("margin-left", (-width*pix/2 + "px"));
   //$("scape").css("margin-top", (-height*pix/2 + "px"));
   console.log("makescape");
-  for (y=0; y<height; y++) {
-    for (x=0; x<width; x++) {
+//  scapeMap = new Array(width);
+  for (x=0; x<width; x++) {
+  //  scapeMap[x] = new Array(height);
+    for (y=0; y<height; y++) {
       makeCell(x, y, pix);
+      //$(".x" + x + "y" + y).css("transform", "+=translate3d(0px, 0px, " + -(x+y)*pix/2 + "px)");
     };
   };
 };
@@ -20,16 +23,16 @@ function makeCell(x, y, pix) {
 
   //some sides commented to reduce latency
   //orthogonal to z axis
-  makeSide(cell, "light", pix,  (x*pix), (y*pix), (pix/2), 0, 0);
-  //makeSide(cell, "dark", pix,  (x*pix), (y*pix), (-pix/2), 0, 0);
+  makeSide(cell, "light", pix,  (x*pix), (y*pix), (pix/2)-(x+y)*pix/4, 0, 0);
+  makeSide(cell, "dark", pix,  (x*pix), (y*pix), (-pix/2)-(x+y)*pix/4, 0, 0);
 
   //orthogonal to y axis
-  makeSide(cell, "dark", pix,  (x*pix), (y*pix+pix/2), 0, (-90), 0);
-  //makeSide(cell, "medium", pix,  (x*pix), (y*pix-pix/2), 0, (-90), 0);
+  makeSide(cell, "dark", pix,  (x*pix), (y*pix+pix/2), -(x+y)*pix/4, (-90), 0);
+  makeSide(cell, "medium", pix,  (x*pix), (y*pix-pix/2), -(x+y)*pix/4, (-90), 0);
 
   //orthogonal to x axis
-  makeSide(cell, "medium", pix,  (x*pix+pix/2), (y*pix), 0, 0, (90));
-  //makeSide(cell, "dark", pix,  (x*pix-pix/2), (y*pix), 0, 0, (90));
+  makeSide(cell, "medium", pix,  (x*pix+pix/2), (y*pix), -(x+y)*pix/4, 0, (90));
+  makeSide(cell, "dark", pix,  (x*pix-pix/2), (y*pix), -(x+y)*pix/4, 0, (90));
 };
 
 function makeSide(cell, shade, pix, tx, ty, tz, rx, ry) {
@@ -72,5 +75,5 @@ function makeSide(cell, shade, pix, tx, ty, tz, rx, ry) {
 
 
 $(document).ready(function() {
-  makeScape(40, 40, 20);
+  makeScape(20, 20, 40);
 });

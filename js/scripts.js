@@ -1,53 +1,50 @@
-function makeScape(width, height, pix) {
-  $("#scape").css("margin-left", (pix/2-width*pix/2) + "px");
-  $("#scape").css("margin-top", (pix/2-height*pix/2) + "px");
+function makeScape(xCells, yCells, cellPx) {
+  $("#scape").css("margin-left", (cellPx/2-xCells*cellPx/2) + "px");
+  $("#scape").css("margin-top", (cellPx/2-yCells*cellPx/2) + "px");
   console.log("makescape");
 //  scapeMap = new Array(width);
-  for (x=0; x<width; x++) {
+  for (x=0; x<xCells; x++) {
   //  scapeMap[x] = new Array(height);
-    for (y=0; y<height; y++) {
-      makeCell(x, y, pix);
-      //$(".x" + x + "y" + y).css("transform", "+=translate3d(0px, 0px, " + -(x+y)*pix/2 + "px)");
+    for (y=0; y<yCells; y++) {
+      makeBox(("x" + x + "y" + y), x*cellPx, y*cellPx, 0, cellPx, cellPx, cellPx);
+      //$(".x" + x + "y" + y).css("transform", "+=translate3d(0px, 0px, " + -(x+y)*cellPx/2 + "px)");
     };
   };
 };
 
-function makeCell(x, y, pix) {
-  console.log("makeCell");
-  var cell = "x" + x + "y" + y;
-  //INIT COLOR
+function makeBox(className, xcenter, ycenter, zcenter, xdim, ydim, zdim) {
+  console.log("makeBox");
+    //INIT COLOR
   //$("#scape").append("<div class='object'></div>")
 
   //$("#scape").append("<div id='#" + cellId + "' class='object'></div>")
-  //$("#" + cellId).css("transform", "translate3d(" + (x*pix) + "px, " + (y*pix) + "px, 0px)");
+  //$("#" + cellId).css("transform", "translate3d(" + (x*cellPx) + "px, " + (y*cellPx) + "px, 0px)");
 
   //some sides commented to reduce latency
   //orthogonal to z axis
-  makeSide(cell, "light", pix,  (x*pix), (y*pix), (pix/2)-(x+y)*pix/5, 0, 0);
-  makeSide(cell, "dark", pix,  (x*pix), (y*pix), (-pix/2)-(x+y)*pix/5, 0, 0);
+  makeFace(className, "light", xdim, ydim,  xcenter, ycenter, (zcenter+zdim/2), 0, 0);
+  makeFace(className, "dark", xdim, ydim, xcenter, ycenter, (zcenter-zdim/2), 0, 0);
 
   //orthogonal to y axis
-  makeSide(cell, "dark", pix,  (x*pix), (y*pix+pix/2), -(x+y)*pix/5, (-90), 0);
-  makeSide(cell, "medium", pix,  (x*pix), (y*pix-pix/2), -(x+y)*pix/5, (-90), 0);
+  makeFace(className, "dark", xdim, zdim, xcenter, (ycenter+ydim/2), zcenter, (-90), 0);
+  makeFace(className, "medium", xdim, zdim, xcenter, (ycenter-ydim/2), zcenter, (-90), 0);
 
   //orthogonal to x axis
-  makeSide(cell, "medium", pix,  (x*pix+pix/2), (y*pix), -(x+y)*pix/5, 0, (90));
-  makeSide(cell, "dark", pix,  (x*pix-pix/2), (y*pix), -(x+y)*pix/5, 0, (90));
+  makeFace(className, "medium", zdim, ydim, (xcenter + xdim/2), ycenter, zcenter, 0, (90));
+  makeFace(className, "dark", zdim, ydim, (xcenter -xdim/2), ycenter, zcenter, 0, (90));
 };
 
-function makeSide(cell, shade, pix, tx, ty, tz, rx, ry) {
-  console.log(cell);
+function makeFace(className, shade, width, height, tx, ty, tz, rx, ry) {
+  console.log(className);
   //$("#" + parentId).append("<p>hey</p>");
 //INIT COLOR
-  $("#scape").append("<div class='" + cell + " " + shade + " object'></div>");
-  side = $("." + cell).last();
-  side.css("width", pix);
-  side.css("height", pix);
-  side.css("margin-left", -pix/2);
-  side.css("margin-top", -pix/2);
+  $("#scape").append("<div class='" + className + " " + shade + " object'></div>");
+  side = $("." + className).last();
+  side.css("width", width);
+  side.css("height", height);
+  side.css("margin-left", -width/2);
+  side.css("margin-top", -height/2);
   side.css("transform", "translate3d(" + tx + "px, " + ty + "px, " + tz + "px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) rotateZ(0deg)");
-
-
 };
 //THREE SIDES
 //1000x1000 at px2 is too much

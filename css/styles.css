@@ -5,6 +5,7 @@ html, body {
 
 body {
   perspective: 600px;
+  background-color: #FFF9C7;
 }
 
 #scape {
@@ -19,14 +20,35 @@ body {
 }
 
 .light {
-  background: lightgreen;
+  background: #CFFD78;
 }
 .medium {
-  background: green;
+  background: #9BBC5B;
 }
 .dark {
-  background: darkgreen;
+  background: #687E3E;
 }
+
+.navbar-fixed-left {
+  width: 140px;
+  padding-top: 16%;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  float: left;
+}
+
+.navbar-fixed-left li {
+  margin-top: 0;
+  width: 139px;
+  font-size: 17px;
+}
+
+.logo-font {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
 /*
 #cell1 {
   transform: translate3d(0px, 0px, 0px)

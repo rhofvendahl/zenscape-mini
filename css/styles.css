@@ -20,11 +20,18 @@ body {
   transform-style: preserve-3d;
 }
 
+.light {
+  background: lightgreen;
+}
+.medium {
+  background: green;
+}
+.dark {
+  background: darkgreen;
+}
+
 #cell1 {
   transform: translate3d(0px, 0px, 0px)
-    rotateX(0deg)
-    rotateY(0deg)
-    rotateZ(0deg);
 }
 #top1 {
   background: darkred;

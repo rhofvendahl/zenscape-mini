@@ -1,23 +1,32 @@
-body {
-  margin-top: 50%;
-  perspective: 500px;
+html, body {
+  height: 100%;
 }
 
-#scape {
-  animation: spin 30s linear infinite;
+body {
+  perspective: 500px;
+  perspective-origin: left;
+}
+
+/*#scape {
+  animation: spin 45s linear infinite;
 }
 
 @keyframes spin {
   to {
     transform: rotateY(360deg) rotateZ(360deg) rotateX(720deg);
   }
-}
+}*/
 
 .object {
   position: absolute;
   left: 50%;
   top: 50%;
   transform-style: preserve-3d;
+
+}
+
+#scape {
+  
 }
 
 .light {
@@ -29,7 +38,7 @@ body {
 .dark {
   background: darkgreen;
 }
-
+/*
 #cell1 {
   transform: translate3d(0px, 0px, 0px)
 }

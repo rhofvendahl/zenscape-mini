@@ -15,11 +15,20 @@ body {
   transform: rotateX(60deg);
 }
 
+
 .object {
   position: absolute;
 }
 
-.light {
+.base.light {
+  background: #7F7F7F;
+}
+.base.medium {
+  background: #606060;
+}
+.base.dark {
+  background: #424242;
+}.light {
   background: #CFFD78;
 }
 .medium {

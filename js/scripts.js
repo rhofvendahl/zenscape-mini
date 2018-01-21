@@ -1,9 +1,9 @@
-function makeMap(xDim, yDim) {
+function makeMap1(xDim, yDim) {
   var map = new Array(xDim);
   for (var x=0; x<xDim; x++) {
     map[x] = new Array(yDim);
     for (var y=0; y<yDim; y++) {
-      map[x][y] = Math.random()*x/40;
+      map[x][y] = Math.random()*x/17;
     };
   };
   return map;
@@ -15,7 +15,7 @@ function makeScape(map, cellDim) {
   //console.log("makescape");
   for (x=0; x<map.length; x++) {
     for (y=0; y<map[0].length; y++) {
-      makeBox(("x" + x + "y" + y), x*cellDim, y*cellDim, 0, cellDim, cellDim, cellDim);
+      makeBox((x + "-" + y), x*cellDim, y*cellDim, 0, cellDim, cellDim, cellDim);
     };
   };
   makeBox("base", 0, 0, -cellDim*1.5, (map.length*cellDim), (map[0].length*cellDim), cellDim);
@@ -53,8 +53,8 @@ function makeFace(className, shade, width, height, tx, ty, tz, rx, ry) {
 function updateScape(map, cellDim) {
   for (var x=0; x<map.length; x++) {
     for (var y=0; y<map[0].length; y++) {
-      var box = $(".x" + x + "y" + y)
-      box.css("transform", "translateZ(" + map[x][y]*cellDim*x + "px)");
+      var box = $("." + x + "-" + y)
+      box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       if (map[x][y] < .3) {
         //blue
         box.children(".light").css("background", "#9CF1FD");
@@ -65,7 +65,7 @@ function updateScape(map, cellDim) {
         box.children(".light").css("background", "#FFF089");
         box.children(".medium").css("background", "#C1B367");
         box.children(".dark").css("background", "#817847");
-      } else if (map[x][y] < .6) {
+      } else if (map[x][y] < .65) {
         //green
         box.children(".light").css("background", "#CFFD78");
         box.children(".medium").css("background", "#9BBC5B");
@@ -75,7 +75,7 @@ function updateScape(map, cellDim) {
         box.children(".light").css("background", "#BEBEBE");
         box.children(".medium").css("background", "#8E8E8E");
         box.children(".dark").css("background", "#606060");
-      } else if (map[x][y] < .9) {
+      } else {
         //white
         box.children(".light").css("background", "#FFFFFF");
         box.children(".medium").css("background", "#BEBEBE");
@@ -84,6 +84,8 @@ function updateScape(map, cellDim) {
     };
   };
 };
+
+
 //THREE SIDES
 //1000x1000 at px2 is too much
 //1000x1000 at 2px also too much
@@ -113,4 +115,19 @@ $(document).ready(function() {
   var map = makeMap(xCells, yCells);
   makeScape(map, cellDim);
   updateScape(map, cellDim);
+
+  var clickCount = 0;
+  var clickEvents = new Array(5);
+  $("#scape").children().click(function() {
+    var clickEvent = new Array(3);
+    clickEvent[0] = $(this).attr("class").split(/[- ]/)[0];
+    clickEvent[1] = $(this).attr("class").split(/[- ]/)[0];
+    clickEvent[2] = 1;
+    clickEvents[clickCount%5] = clickEvent;
+    clickCount++;
+    console.log(clickEvent);
+  });
+
+  setInterval()
+
 });

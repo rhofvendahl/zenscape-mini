@@ -36,8 +36,8 @@ function makeBox(className, xCoord, yCoord, zCoord, xDim, yDim, zDim) {
   //makeFace(className, "medium", xDim, yDim, (xCoord+xDim/2), -(yCoord+yDim/2), (zCoord), 0, 0, 0);
 
   //orthogonal to x axis
-  //makeFace(className, "medium", zDim, yDim, (xCoord + xDim), -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
-  //makeFace(className, "dark", zDim, yDim, xCoord, -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
+  makeFace(className, "light", zDim, yDim, (xCoord + xDim), -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
+  makeFace(className, "dark", zDim, yDim, xCoord, -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
 };
 
 function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
@@ -55,17 +55,17 @@ function updateScape(map, cellDim, peak) {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({"top": -map[x][z]*cellDim + "px"}, 5000);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 1000);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
 
-      if (map[x][z] <= .2*peak) {
+      if (map[x][z] <= .25*peak) {
         //blue
         box.children(".light").css("background", "#9CF1FD");
         box.children(".medium").css("background", "#75B4BC");
         box.children(".dark").css("background", "#50787E");
-      } else if (map[x][z] <= .25*peak) {
+      } else if (map[x][z] <= .3*peak) {
         //tan
         box.children(".light").css("background", "#FFF089");
         box.children(".medium").css("background", "#C1B367");
@@ -94,12 +94,12 @@ function updateMap(map, cellDim, click) {
   var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
-      var distance1 = Math.pow((Math.pow(x-10, 2)+Math.pow(z-10, 2)), 1/2);
+      var distance1 = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
       var distance2 = Math.pow((Math.pow(x-15, 2)+Math.pow(z-15, 2)), 1/2);
 
-      map[x][z] = Math.random()/8
-      map[x][z] += 1/(1+distance1);///42.5 - Math.pow(Math.pow(x-click[0])+Math.pow(z-click[1], 2), 1/);
-      map[x][z] += 1/(1+distance2);
+      map[x][z] = Math.random()/4
+      map[x][z] += 1.5/(1+distance1);///42.5 - Math.pow(Math.pow(x-click[0])+Math.pow(z-click[1], 2), 1/);
+      map[x][z] += 1.5/(1+distance2);
       if (map[x][z] > peak) peak = map[x][z];
     };
   };

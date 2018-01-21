@@ -55,7 +55,7 @@ function updateScape(peak) {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 3000);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 500);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
@@ -97,14 +97,16 @@ function updateMap() {
       map[x][z] = Math.random()/4;
       for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
         var click = clickLog[clickLog.length-1-i];
+        var seconds = (Date.now() - click[2])/1000;
+        console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
         //map[x][z] += 2*click[2]/(1+distance);
-        if (distance/2 < Math.PI) map[x][z] += (Math.cos(distance/2) + 1)/1.5;
+        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds)/2 + 1);
         if (map[x][z] > peak) peak = map[x][z];
       };
     };
   };
-  console.log(peak);
+  //console.log(peak);
   return peak;
 };
 //THREE SIDES
@@ -148,15 +150,15 @@ $(document).ready(function() {
   //peak global for now
 
   $("#scape").children().click(function() {
-    var click = new Array(3S);
+    var click = new Array(3);
     click[0] = parseInt($(this).attr("class").split(/[- ]/)[0]);
     click[1] = parseInt($(this).attr("class").split(/[- ]/)[1]);
-    click[2] = Math.random();
+    click[2] = Date.now();
     clickLog.push(click);
   });
 
   setInterval(function() {
     var peak = updateMap();
     updateScape(peak);
-  }, 3000);
+  }, 500);
 });

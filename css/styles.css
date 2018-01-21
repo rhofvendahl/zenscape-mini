@@ -6,27 +6,29 @@ html, body {
 body {
   perspective: 600px;
   background-color: #FFF9C7;
+
 }
 
 #scape {
-  left: 50%;
-  top: 50%;
-  transform-style: preserve-3d;
   transform: rotateX(60deg);
+
 }
 
 
 .object {
+  left: 50%;
+  top: 50%;
   position: absolute;
+  transform-style: preserve-3d;
 }
 
-.base.light {
+.base .light {
   background: #7F7F7F;
 }
-.base.medium {
+.base .medium {
   background: #606060;
 }
-.base.dark {
+.base .dark {
   background: #424242;
 }.light {
   background: #CFFD78;

@@ -1,15 +1,14 @@
 //sorry bout dimsssssss
 function makeMap(xDim, zDim) {
   highest = 0;
-  var map = new Array(xDim);
+  map = new Array(xDim);
   peak = 0;
   for (var x=0; x<xDim; x++) {
     map[x] = new Array(zDim).fill(0);
   };
-  return map;
 };
 
-function makeScape(map, cellDim) {
+function makeScape() {
   $("#scape").css("margin-left", (-map.length*cellDim/2) + "px");
   $("#scape").css("margin-top", (-map[0].length*cellDim/2) + "px");
   //console.log("makescape");
@@ -51,60 +50,61 @@ function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
   side.css("transform", "translate3d("+tx+"px, "+ty+"px,"+tz+"px) rotateX("+rx+"deg) rotateY("+ry+"deg) rotateZ("+rz+"deg)");
 };
 
-function updateScape(map, cellDim, peak) {
+function updateScape(peak) {
+  snowLine = 2.5;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 1000);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 3000);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
 
-      if (map[x][z] <= .25*peak) {
+      if (map[x][z] <= .3*snowLine) {
         //blue
         box.children(".light").css("background", "#9CF1FD");
         box.children(".medium").css("background", "#75B4BC");
         box.children(".dark").css("background", "#50787E");
-      } else if (map[x][z] <= .3*peak) {
+      } else if (map[x][z] <= .4*snowLine) {
         //tan
         box.children(".light").css("background", "#FFF089");
         box.children(".medium").css("background", "#C1B367");
         box.children(".dark").css("background", "#817847");
-      } else if (map[x][z] <= .5*peak) {
+      } else if (map[x][z] <= .75*snowLine) {
         //green
         box.children(".light").css("background", "#CFFD78");
         box.children(".medium").css("background", "#9BBC5B");
         box.children(".dark").css("background", "#687E3E");
-      } else { //if (map[x][z] <= .7*peak) {
+      } else if (map[x][z] <= snowLine) {
         //grey
         box.children(".light").css("background", "#BEBEBE");
         box.children(".medium").css("background", "#8E8E8E");
         box.children(".dark").css("background", "#606060");
-      }; /*else {
+      } else {
         //white
         box.children(".light").css("background", "#FFFFFF");
         box.children(".medium").css("background", "#BEBEBE");
         box.children(".dark").css("background", "#7F7F7F");
-      };*/
+      };
     };
   };
 };
 
-function updateMap(map, cellDim, click) {
+function updateMap() {
   var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
-      var distance1 = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
-      var distance2 = Math.pow((Math.pow(x-15, 2)+Math.pow(z-15, 2)), 1/2);
-
-      map[x][z] = Math.random()/4
-      map[x][z] += 1.5/(1+distance1);///42.5 - Math.pow(Math.pow(x-click[0])+Math.pow(z-click[1], 2), 1/);
-      map[x][z] += 1.5/(1+distance2);
-      if (map[x][z] > peak) peak = map[x][z];
+      map[x][z] = Math.random()/4;
+      for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
+        var click = clickLog[clickLog.length-1-i];
+        var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
+        //map[x][z] += 2*click[2]/(1+distance);
+        if (distance/2 < Math.PI) map[x][z] += (Math.cos(distance/2) + 1)/1.5;
+        if (map[x][z] > peak) peak = map[x][z];
+      };
     };
   };
   console.log(peak);
-
   return peak;
 };
 //THREE SIDES
@@ -129,29 +129,34 @@ function updateMap(map, cellDim, click) {
 //*100x100 10px no perspective 8s load, pretty smooth*
 
 //try changing render rate, or image quality
-function render(map, cellDim, clickEvents) {
-  console.log("render");
-  count+=5;
-  //css("transform", "translateZ(" + count + "px)");
+//how to NOT have these global?
+var map;
+var clickLog = [];
+var cellDim;
+
+function render() {
+  var peak = updateMap();
+  updateScape(peak);
 };
 
 $(document).ready(function() {
   var xCells = 20;
   var zCells = 20;
-  var cellDim = 20;
-  var map = makeMap(xCells, zCells);
-  makeScape(map, cellDim);
+  cellDim = 20;
+  makeMap(xCells, zCells);
+  makeScape();
   //peak global for now
 
   $("#scape").children().click(function() {
-    var click = new Array(4);
+    var click = new Array(3S);
     click[0] = parseInt($(this).attr("class").split(/[- ]/)[0]);
     click[1] = parseInt($(this).attr("class").split(/[- ]/)[1]);
-    click[2] = Number.parseFloat(Math.random().toFixed(3));
-    click[3] = Date.now();
-    console.log(click);
-    var peak = updateMap(map, cellDim, click);
-    updateScape(map, cellDim, peak);
-
+    click[2] = Math.random();
+    clickLog.push(click);
   });
+
+  setInterval(function() {
+    var peak = updateMap();
+    updateScape(peak);
+  }, 3000);
 });

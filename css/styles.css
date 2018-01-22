@@ -9,21 +9,44 @@ body {
 }
 
 #scape {
-  transform: rotateX(-30deg);
+  transform: rotateX(-27deg);
 }
 
 .object {
   left: 50%;
-  top: 50%;
+  top: 55%;
   position: absolute;
   transform-style: preserve-3d;
 }
 
 .base .light {
-  background: #7F7F7F;
+  background: #9e9c9c;
 }
 .base .medium {
-  background: #606060;
+  background: #807f7e;
 }
 .base .dark {
-  background: #424242;
+  background: #4f4e4e;
+}
+
+#stripe {
+  position: fixed;
+  height: 100%;
+  width: 150px;
+  margin-left: 20%;
+  background: #DBD7D3;
+  text-align: center;
+  font-size: 25px;
+  font-family: 'Macondo', cursive;
+  color: white;
+
+}
+
+#logo {
+  margin-top: 70px;
+  height: 130px;
+  width: 150px;;
+  background: #C7C3C0;
+  text-align: center;
+  font-size: 100px;
+}

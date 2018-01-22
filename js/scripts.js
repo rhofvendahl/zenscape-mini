@@ -1,4 +1,3 @@
-//sorry bout dimsssssss
 function makeMap(xDim, zDim) {
   highest = 0;
   map = new Array(xDim);
@@ -11,10 +10,8 @@ function makeMap(xDim, zDim) {
 function makeScape() {
   $("#scape").css("margin-left", (-map.length*cellDim/2) + "px");
   $("#scape").css("margin-top", (-map[0].length*cellDim/2) + "px");
-  //console.log("makescape");
   for (x=0; x<map.length; x++) {
     for (z=0; z<map[0].length; z++) {
-      //should incl map
       makeBox((x + "-" + z), x*cellDim, map[x][z]*cellDim, z*cellDim, cellDim, cellDim, cellDim);
     };
   };
@@ -55,16 +52,12 @@ function updateScape() {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 200);
-
-      //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
-      //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
-
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 250);
       if (map[x][z] <= .2*snowLine) {
         //blue
-        box.children(".light").css("background", "#3C7CEA");
-        box.children(".medium").css("background", "#2C5EAF");
-        box.children(".dark").css("background", "#1C4174");
+        box.children(".light").css("background", "#4081f2");
+        box.children(".medium").css("background", "#346dc7");
+        box.children(".dark").css("background", "#275799");
       } else if (map[x][z] <= .3*snowLine) {
         //tan
         box.children(".light").css("background", "#FFF089");
@@ -72,9 +65,9 @@ function updateScape() {
         box.children(".dark").css("background", "#817847");
       } else if (map[x][z] <= .6*snowLine) {
         //green
-        box.children(".light").css("background", "#ADD644");
-        box.children(".medium").css("background", "#82A033");
-        box.children(".dark").css("background", "#586B22");
+        box.children(".light").css("background", "#2aa330");
+        box.children(".medium").css("background", "#1f8c28");
+        box.children(".dark").css("background", "#106e1f");
       } else if (map[x][z] <= snowLine) {
         //grey
         box.children(".light").css("background", "#BEBEBE");
@@ -98,9 +91,7 @@ function updateMap() {
       for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
         var click = clickLog[clickLog.length-1-i];
         var seconds = (Date.now() - click[2])/1000;
-        console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
-        //map[x][z] += 2*click[2]/(1+distance);
         if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds) + 1)/2;
       };
     };
@@ -127,8 +118,6 @@ function updateMap() {
 //**100x100 4px no perspective loads slowly, but smooth**
 //*100x100 10px no perspective 8s load, pretty smooth*
 
-//try changing render rate, or image quality
-//how to NOT have these global?
 var map;
 var clickLog = [];
 var cellDim;
@@ -139,7 +128,6 @@ $(document).ready(function() {
   cellDim = 20;
   makeMap(xCells, zCells);
   makeScape();
-  //peak global for now
 
   $("#scape").children().click(function() {
     var click = new Array(3);
@@ -155,4 +143,3 @@ $(document).ready(function() {
     updateMap();
   }, 200);
 });
-

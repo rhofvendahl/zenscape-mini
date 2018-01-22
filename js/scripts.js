@@ -55,16 +55,16 @@ function updateScape() {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 5);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 1);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
 
       if (map[x][z] <= .2*snowLine) {
         //blue
-        box.children(".light").css("background", "#9CF1FD");
-        box.children(".medium").css("background", "#75B4BC");
-        box.children(".dark").css("background", "#50787E");
+        box.children(".light").css("background", "#3C7CEA");
+        box.children(".medium").css("background", "#2C5EAF");
+        box.children(".dark").css("background", "#1C4174");
       } else if (map[x][z] <= .3*snowLine) {
         //tan
         box.children(".light").css("background", "#FFF089");
@@ -72,9 +72,9 @@ function updateScape() {
         box.children(".dark").css("background", "#817847");
       } else if (map[x][z] <= .6*snowLine) {
         //green
-        box.children(".light").css("background", "#CFFD78");
-        box.children(".medium").css("background", "#9BBC5B");
-        box.children(".dark").css("background", "#687E3E");
+        box.children(".light").css("background", "#ADD644");
+        box.children(".medium").css("background", "#82A033");
+        box.children(".dark").css("background", "#586B22");
       } else if (map[x][z] <= snowLine) {
         //grey
         box.children(".light").css("background", "#BEBEBE");
@@ -101,7 +101,7 @@ function updateMap() {
         console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
         //map[x][z] += 2*click[2]/(1+distance);
-        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds) + 1)/2;
+        if (Math.abs(distance - seconds*2) < Math.PI) map[x][z] += (Math.cos(distance - seconds*2) + 1)/2;
       };
     };
   };
@@ -153,5 +153,6 @@ $(document).ready(function() {
     $("#scape").children().stop();
     updateScape();
     updateMap();
-  }, 5);
+  }, 1);
 });
+

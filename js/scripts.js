@@ -48,7 +48,7 @@ function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
 };
 
 function updateScape() {
-  snowLine = 2.5;
+  snowLine = 3;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
@@ -92,7 +92,7 @@ function updateMap() {
         var click = clickLog[clickLog.length-1-i];
         var seconds = (Date.now() - click[2])/1000;
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
-        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds) + 1)/2;
+        if (Math.abs(distance/2 - seconds) < Math.PI) map[x][z] += (Math.cos(distance/2 - seconds) + 1)/2;
       };
     };
   };

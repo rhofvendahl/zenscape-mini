@@ -35,8 +35,8 @@ function makeBox(className, xCoord, yCoord, zCoord, xDim, yDim, zDim) {
   //makeFace(className, "medium", xDim, yDim, (xCoord+xDim/2), -(yCoord+yDim/2), (zCoord), 0, 0, 0);
 
   //orthogonal to x axis
-  makeFace(className, "light", zDim, yDim, (xCoord + xDim), -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
-  makeFace(className, "dark", zDim, yDim, xCoord, -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
+  //makeFace(className, "light", zDim, yDim, (xCoord + xDim), -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
+  //makeFace(className, "dark", zDim, yDim, xCoord, -(yCoord+yDim/2), (zCoord+zDim/2), 0, (90), 0);
 };
 
 function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
@@ -50,27 +50,27 @@ function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
   side.css("transform", "translate3d("+tx+"px, "+ty+"px,"+tz+"px) rotateX("+rx+"deg) rotateY("+ry+"deg) rotateZ("+rz+"deg)");
 };
 
-function updateScape(peak) {
+function updateScape() {
   snowLine = 2.5;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 500);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 5);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
 
-      if (map[x][z] <= .3*snowLine) {
+      if (map[x][z] <= .2*snowLine) {
         //blue
         box.children(".light").css("background", "#9CF1FD");
         box.children(".medium").css("background", "#75B4BC");
         box.children(".dark").css("background", "#50787E");
-      } else if (map[x][z] <= .4*snowLine) {
+      } else if (map[x][z] <= .3*snowLine) {
         //tan
         box.children(".light").css("background", "#FFF089");
         box.children(".medium").css("background", "#C1B367");
         box.children(".dark").css("background", "#817847");
-      } else if (map[x][z] <= .75*snowLine) {
+      } else if (map[x][z] <= .6*snowLine) {
         //green
         box.children(".light").css("background", "#CFFD78");
         box.children(".medium").css("background", "#9BBC5B");
@@ -94,20 +94,17 @@ function updateMap() {
   var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
-      map[x][z] = Math.random()/4;
-      for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
+      map[x][z] = 0;//Math.random()/4;
+      for (var i = 0; (i < 10) && (i < clickLog.length); i++) {
         var click = clickLog[clickLog.length-1-i];
         var seconds = (Date.now() - click[2])/1000;
         console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
         //map[x][z] += 2*click[2]/(1+distance);
-        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds)/2 + 1);
-        if (map[x][z] > peak) peak = map[x][z];
+        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds) + 1)/2;
       };
     };
   };
-  //console.log(peak);
-  return peak;
 };
 //THREE SIDES
 //1000x1000 at px2 is too much
@@ -136,11 +133,6 @@ var map;
 var clickLog = [];
 var cellDim;
 
-function render() {
-  var peak = updateMap();
-  updateScape(peak);
-};
-
 $(document).ready(function() {
   var xCells = 20;
   var zCells = 20;
@@ -158,7 +150,8 @@ $(document).ready(function() {
   });
 
   setInterval(function() {
-    var peak = updateMap();
-    updateScape(peak);
-  }, 500);
+    $("#scape").children().stop();
+    updateScape();
+    updateMap();
+  }, 5);
 });

@@ -55,7 +55,7 @@ function updateScape() {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 50);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 200);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
@@ -94,14 +94,14 @@ function updateMap() {
   var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
-      map[x][z] = Math.random()/5;
+      map[x][z] = 0;
       for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
         var click = clickLog[clickLog.length-1-i];
         var seconds = (Date.now() - click[2])/1000;
         console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
         //map[x][z] += 2*click[2]/(1+distance);
-        if (Math.abs(distance - seconds/2) < Math.PI) map[x][z] += (Math.cos(distance - seconds/2) + 1)/2;
+        if (Math.abs(distance - seconds) < Math.PI) map[x][z] += (Math.cos(distance - seconds) + 1)/2;
       };
     };
   };
@@ -153,6 +153,6 @@ $(document).ready(function() {
     $("#scape").children().stop();
     updateScape();
     updateMap();
-  }, 50);
+  }, 200);
 });
 

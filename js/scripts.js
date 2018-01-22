@@ -55,7 +55,7 @@ function updateScape() {
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
-    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 1);
+    $("." + x + "-" + z).animate({top: -map[x][z]*cellDim + "px"}, 100);
 
       //box.css("transform", "translateZ(" + map[x][y]*cellDim + "px)");
       //console.log("updateScape x" + x + "z" + z + " " + map[x][z]);
@@ -153,6 +153,6 @@ $(document).ready(function() {
     $("#scape").children().stop();
     updateScape();
     updateMap();
-  }, 1);
+  }, 100);
 });
 

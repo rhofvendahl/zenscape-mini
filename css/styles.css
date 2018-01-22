@@ -5,6 +5,7 @@ html, body {
 
 body {
   perspective: 600px;
+  background: #ebe9e7;
 }
 
 #scape {
@@ -26,12 +27,3 @@ body {
 }
 .base .dark {
   background: #424242;
-}.light {
-  background: #CFFD78;
-}
-.medium {
-  background: #9BBC5B;
-}
-.dark {
-  background: #687E3E;
-}

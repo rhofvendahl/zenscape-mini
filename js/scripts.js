@@ -94,7 +94,7 @@ function updateMap() {
   var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
-      map[x][z] = 0;//Math.random()/4;
+      map[x][z] = Math.random()/5;
       for (var i = 0; (i < 5) && (i < clickLog.length); i++) {
         var click = clickLog[clickLog.length-1-i];
         var seconds = (Date.now() - click[2])/1000;

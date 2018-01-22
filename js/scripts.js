@@ -101,7 +101,7 @@ function updateMap() {
         console.log(i + " " + seconds)
         var distance = Math.pow((Math.pow(x-click[0], 2)+Math.pow(z-click[1], 2)), 1/2);
         //map[x][z] += 2*click[2]/(1+distance);
-        if (Math.abs(distance - seconds*2) < Math.PI) map[x][z] += (Math.cos(distance - seconds*2) + 1)/2;
+        if (Math.abs(distance - seconds/2) < Math.PI) map[x][z] += (Math.cos(distance - seconds/2) + 1)/2;
       };
     };
   };

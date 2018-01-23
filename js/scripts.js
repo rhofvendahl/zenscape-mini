@@ -1,7 +1,5 @@
 function makeMap(xDim, zDim) {
-  highest = 0;
   map = new Array(xDim);
-  peak = 0;
   for (var x=0; x<xDim; x++) {
     map[x] = new Array(zDim).fill(0);
   };
@@ -48,7 +46,7 @@ function makeFace(className, shade, width, height, tx, ty, tz, rx, ry, rz) {
 };
 
 function updateScape() {
-  snowLine = 3;
+  var snowLine = 3;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       var box = $("." + x + "-" + z);
@@ -84,7 +82,6 @@ function updateScape() {
 };
 
 function updateMap() {
-  var peak = 0;
   for (var x=0; x<map.length; x++) {
     for (var z=0; z<map[0].length; z++) {
       map[x][z] = 0;

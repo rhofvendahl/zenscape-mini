@@ -30,7 +30,7 @@ Zenscape is a web application built to explore the potential of css transforms t
 
 ## Setup/Installation Requirements
 
-Zenscape is viewable online at zenscape.us
+Zenscape is viewable online at http://zenscape.us
 
 To view the source code:
 1. visit https://github.com/rhofvendahl/Zenscape

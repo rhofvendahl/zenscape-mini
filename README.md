@@ -11,7 +11,7 @@ Zenscape is a web application built to explore the potential of css transforms t
 
 ## Specs
 
-####Back-end
+#### Back-end
 
 1. Program defines a function "makeFace" for creating a new div element with dimensions, xyz rotation and xyz translation as arguments.
 2. Program defines a function "makeBox" for creating 6 faces to form an enclosed box with box dimensions and translation as arguments. By default all but the front two faces are commented out to reduce rendering load.

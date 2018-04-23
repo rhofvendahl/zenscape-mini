@@ -108,6 +108,11 @@ $(document).ready(function() {
   zs.makeMap();
   zs.makeScape();
 
+  zs.clickLog.push([5, 6, Date.now()]);
+  zs.clickLog.push([5, 6, Date.now()]);
+  zs.clickLog.push([16, 4, Date.now()+1000]);
+  zs.clickLog.push([14, 14, Date.now()+500]);
+
   $("#scape").children().click(function() {
     var click = new Array(3);
     click[0] = parseInt($(this).attr("class").split(/[- ]/)[0]);
@@ -115,10 +120,11 @@ $(document).ready(function() {
     click[2] = Date.now();
     zs.clickLog.push(click);
   });
-  
+
   setInterval(function() {
     $("#scape").children().stop();
     zs.updateMap();
     zs.updateScape();
   }, 200, zs);
+
 });
